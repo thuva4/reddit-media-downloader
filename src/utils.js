@@ -2,7 +2,7 @@ const fs = require("fs");
 const axios = require("axios");
 const { logger } = require("./logger");
 const ffmpeg = require("fluent-ffmpeg");
-const { REDDIT_BASE_VIDEO_URL } = require("./constants");
+const { REDDIT_BASE_VIDEO_URL, REDDIT_AUDIO_PATH } = require("./constants");
 
 const isUrlExist = async (url) => {
   try {
@@ -28,8 +28,8 @@ const downloadFile = async (url, mediaPath) => {
   });
 };
 
-const scrape = async (mediaId, url, filePath, options = ["-c:v", "copy"]) => {
-  const audioUrl = `${REDDIT_BASE_VIDEO_URL}/${mediaId}/DASH_audio.mp4`;
+const scrape = async (mediaId, url, filePath, options) => {
+  const audioUrl = `${REDDIT_BASE_VIDEO_URL}/${mediaId}/${REDDIT_AUDIO_PATH}`;
   const isAudioAvailable = await isUrlExist(audioUrl);
   const proc = new ffmpeg();
   return new Promise((resolve, reject) => {

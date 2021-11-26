@@ -6,7 +6,7 @@ const { logger } = require('./src/logger');
 const { getImageByUrl } = require("./src/image");
 const { getByVideoUrl, getRedditVideoUrls } = require("./src/video");
 
-const getRedditByMediaUrl = (mediaUrl, mediaType, pathName = '.', resolution='1080') => {
+const getRedditByMediaUrl = (mediaUrl, mediaType, pathName = '.', resolution='1080', options = ["-c:v", "copy"]) => {
   if (!fs.existsSync(pathName)) {
       logger.error(`Path ${pathName} is not exist`);
       return;
@@ -15,7 +15,7 @@ const getRedditByMediaUrl = (mediaUrl, mediaType, pathName = '.', resolution='10
     case "image":
       return getImageByUrl(mediaUrl, pathName);
     case "video":
-      return getByVideoUrl(mediaUrl, pathName, resolution);
+      return getByVideoUrl(mediaUrl, pathName, resolution, options);
     default:
       return "Not Supported Media Type";
   }
