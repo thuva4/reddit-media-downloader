@@ -26,11 +26,11 @@ const getRedditVideoUrls = async (mediaUrl, quality) => {
 };
 
 
-const getByVideoUrl = async (url, filePath, resolution ) => {
+const getByVideoUrl = async (url, filePath, resolution, options) => {
   const mediaId = url.split('/').pop();
   const mediaSourceUrl = await getRedditVideoUrls(url, resolution);
-  const mediaPath = path.join(filePath, mediaId);
-  return await scrape(mediaId, mediaSourceUrl[0], mediaPath, options);
+  const mediaPath = path.join(filePath, `${mediaId}.mp4`);
+  return await scrape(mediaId, mediaSourceUrl[0].url, mediaPath, options);
 };
 
 module.exports = {

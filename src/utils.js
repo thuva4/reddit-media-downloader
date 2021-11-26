@@ -38,7 +38,7 @@ const scrape = async (mediaId, url, filePath, options) => {
       .output(`${filePath}`)
       .outputOptions(options)
       .on("error", (err) => {
-        logger.info(`Error: ${err}`);
+        logger.info(`${err}`);
         reject({});
       })
       .on("end", () => {

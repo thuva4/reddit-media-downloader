@@ -1,6 +1,6 @@
 {
   "name": "reddit-media-downloader",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Download media files from reddit",
   "main": "index.js",
   "scripts": {
