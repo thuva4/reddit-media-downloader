@@ -17,6 +17,7 @@ const getRedditVideoUrls = async (mediaUrl, quality) => {
     const url =  `${REDDIT_BASE_VIDEO_URL}/${mediaId}/DASH_${resolution}.mp4`;
     const contentLength = await getContentLength(url);
     return {
+      resolution,
       url,
       contentLength,
     };
