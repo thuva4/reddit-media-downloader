@@ -12,7 +12,13 @@ const REDDIT_VIDEO_RESOLUTIONS = [
 
 const REDDIT_BASE_VIDEO_URL = 'https://v.redd.it';
 
+const REDDIT_API_BASE_URL = 'https://api.reddit.com/api';
+
+const REDDIT_URL_POST_ID_INDEX = 6;
+
 module.exports = {
   REDDIT_VIDEO_RESOLUTIONS,
   REDDIT_BASE_VIDEO_URL,
+  REDDIT_API_BASE_URL,
+  REDDIT_URL_POST_ID_INDEX,
 };
