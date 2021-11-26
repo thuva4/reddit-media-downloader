@@ -10,7 +10,7 @@ const getImageByUrl = async (mediaUrl, filePath) => {
     const mediaPath = path.join(filePath, mediaFileName);
     try {
       await downloadFile(mediaUrl, mediaPath);
-      return mediaPath; 
+      return { mediaPath }; 
     } catch(err) {
       logger.error(err);
       return null;
