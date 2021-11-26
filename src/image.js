@@ -16,7 +16,7 @@ const getImageByUrl = async (mediaUrl, filePath) => {
       return null;
     }
   } else {
-    logger.error(`${mediaUrl} is not exist`);
+    logger.error(`Media Url ${mediaUrl} is not exist`);
     return null;
   }
 };
