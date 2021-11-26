@@ -1,15 +1,8 @@
 const winston = require('winston')
-const { TIME_ZONE } = require('./constants')
-
-const timezoned = () => {
-  return new Date().toLocaleString('en-US', {
-    timeZone: TIME_ZONE
-  })
-}
 
 const format = winston.format.combine(
   winston.format.colorize(),
-  winston.format.timestamp({ format: timezoned }),
+  winston.format.timestamp(),
   winston.format.align(),
   winston.format.printf(
     (info) => `${info.timestamp} ${info.level}: ${info.message}`
