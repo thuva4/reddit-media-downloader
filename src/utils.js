@@ -57,7 +57,6 @@ const scrape = async (mediaId, url, filePath, options) => {
 };
 
 const getContentLength = async (urlPath) => {
-  console.log(urlPath);
   const { headers } = await axios.head(urlPath).catch(() => {
     return { headers: {} };
   });
