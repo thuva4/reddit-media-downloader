@@ -14,8 +14,14 @@ const getRedditVideoUrls = async (mediaUrl, quality) => {
   };
   const index = getIndexOfQuality(quality);
   const sources = await Promise.all(REDDIT_VIDEO_RESOLUTIONS.slice(index).map(async (resolution) => {
-    const url =  `${REDDIT_BASE_VIDEO_URL}/${mediaId}/DASH_${resolution}.mp4`;
-    const contentLength = await getContentLength(url);
+    let url =  `${REDDIT_BASE_VIDEO_URL}/${mediaId}/DASH_${resolution}.mp4`;
+    let contentLength = await getContentLength(url);
+
+    if (!contentLength) {
+      url =  `${REDDIT_BASE_VIDEO_URL}/${mediaId}/DASH_${resolution}`;
+      contentLength = await getContentLength(url);
+    }
+
     return {
       resolution,
       url,
@@ -30,7 +36,10 @@ const getByVideoUrl = async (url, filePath, resolution, options) => {
   const mediaId = url.split('/').pop();
   const mediaSourceUrl = await getRedditVideoUrls(url, resolution);
   const mediaPath = path.join(filePath, `${mediaId}.mp4`);
-  return await scrape(mediaId, mediaSourceUrl[0].url, mediaPath, options);
+  if (mediaSourceUrl.length) {
+    return await scrape(mediaId, mediaSourceUrl[0].url, mediaPath, options);
+  } 
+  return {};
 };
 
 module.exports = {
