@@ -29,8 +29,17 @@ const downloadFile = async (url, mediaPath) => {
 };
 
 const scrape = async (mediaId, url, filePath, options) => {
-  const audioUrl = `${REDDIT_BASE_VIDEO_URL}/${mediaId}/${REDDIT_AUDIO_PATH}`;
-  const isAudioAvailable = await isUrlExist(audioUrl);
+  const audioUrls = [`${REDDIT_BASE_VIDEO_URL}/${mediaId}/${REDDIT_AUDIO_PATH}`, `${REDDIT_BASE_VIDEO_URL}/${mediaId}/audio`];
+  let isAudioAvailable  = false
+  let audioUrl
+  for (const url of audioUrls) {
+    const isAvailable = await isUrlExist(url);
+    if (isAvailable) {
+      isAudioAvailable = isAvailable;
+      audioUrl = url;
+      break;
+    }
+  }
   const proc = new ffmpeg();
   return new Promise((resolve, reject) => {
     proc
