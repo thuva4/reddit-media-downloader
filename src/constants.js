@@ -22,6 +22,10 @@ const REDDIT_IMAGE_BASE_URL = 'i.redd.it';
 
 const REDDIT_AUDIO_PATH = 'DASH_audio.mp4'
 
+const POST_TYPE_IMAGE = 'image';
+
+const POST_TYPE_VIDEO = 'video';
+
 module.exports = {
   REDDIT_VIDEO_RESOLUTIONS,
   REDDIT_BASE_VIDEO_URL,
@@ -30,4 +34,6 @@ module.exports = {
   IMGUR_URL,
   REDDIT_IMAGE_BASE_URL,
   REDDIT_AUDIO_PATH,
+  POST_TYPE_IMAGE,
+  POST_TYPE_VIDEO,
 };

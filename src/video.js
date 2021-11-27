@@ -1,7 +1,7 @@
 const path = require('path');
 
 const { REDDIT_VIDEO_RESOLUTIONS, REDDIT_BASE_VIDEO_URL } = require("./constants");
-const { scrape, getContentLength } = require("./utils");
+const { scrape, getContentLength, getAudioAvailable } = require("./utils");
 
 const getRedditVideoUrls = async (mediaUrl, quality) => {
   const mediaId = mediaUrl.split('/').pop();
@@ -16,6 +16,7 @@ const getRedditVideoUrls = async (mediaUrl, quality) => {
   const sources = await Promise.all(REDDIT_VIDEO_RESOLUTIONS.slice(index).map(async (resolution) => {
     let url =  `${REDDIT_BASE_VIDEO_URL}/${mediaId}/DASH_${resolution}.mp4`;
     let contentLength = await getContentLength(url);
+    const { isAudioAvailable } = await getAudioAvailable(mediaId);
 
     if (!contentLength) {
       url =  `${REDDIT_BASE_VIDEO_URL}/${mediaId}/DASH_${resolution}`;
@@ -26,6 +27,7 @@ const getRedditVideoUrls = async (mediaUrl, quality) => {
       resolution,
       url,
       contentLength,
+      isAudioAvailable,
     };
   }));
   return sources.filter(source => source.contentLength);

@@ -28,7 +28,7 @@ const downloadFile = async (url, mediaPath) => {
   });
 };
 
-const scrape = async (mediaId, url, filePath, options) => {
+const getAudioAvailable = async (mediaId) => {
   const audioUrls = [`${REDDIT_BASE_VIDEO_URL}/${mediaId}/${REDDIT_AUDIO_PATH}`, `${REDDIT_BASE_VIDEO_URL}/${mediaId}/audio`];
   let isAudioAvailable  = false
   let audioUrl
@@ -40,7 +40,15 @@ const scrape = async (mediaId, url, filePath, options) => {
       break;
     }
   }
+  return {
+    isAudioAvailable,
+    audioUrl,
+  }
+}
+
+const scrape = async (mediaId, url, filePath, options) => {
   const proc = new ffmpeg();
+  const { isAudioAvailable, audioUrl } = await getAudioAvailable(mediaId);
   return new Promise((resolve, reject) => {
     proc
       .addInput(url)
@@ -77,4 +85,5 @@ module.exports = {
   scrape,
   getContentLength,
   isUrlExist,
+  getAudioAvailable,
 };
