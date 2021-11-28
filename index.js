@@ -10,7 +10,7 @@ const {
   POST_TYPE_IMAGE,
 } = require("./src/constants");
 const { logger } = require("./src/logger");
-const { getImageByUrl } = require("./src/image");
+const { getImageByUrl, getImageUrls } = require("./src/image");
 const { getByVideoUrl, getRedditVideoUrls } = require("./src/video");
 
 const getRedditByMediaUrl = (
@@ -50,6 +50,7 @@ const getRedditMedia = async (postUrl, filePath) => {
       url: mediaUrl,
       is_video: isVideo,
       url,
+      title
     } = data.children[0].data;
     const isImage =
       url.includes(IMGUR_URL) || url.includes(REDDIT_IMAGE_BASE_URL);
@@ -62,9 +63,9 @@ const getRedditMedia = async (postUrl, filePath) => {
       : "";
     switch (mediaType) {
       case POST_TYPE_VIDEO:
-        return getRedditVideoUrls(url);
+        return {title, ...getRedditVideoUrls}(url);
       case POST_TYPE_IMAGE:
-        return getImageUrls(url);
+        return {title, ...getImageUrls(url)};
       default:
         return null;
     }

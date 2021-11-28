@@ -1,11 +1,13 @@
 const path = require("path");
 
 const { logger } = require("./logger");
-const { downloadFile, isUrlExist } = require("./utils");
+const { POST_TYPE_IMAGE } = require("./constants");
+const { downloadFile, isUrlExist, getContentLength } = require("./utils");
 
 const getImageUrls = async (url) => {
   const contentLength = await getContentLength(url);
   return [{
+    postType: POST_TYPE_IMAGE,
     url,
     contentLength,
   }];

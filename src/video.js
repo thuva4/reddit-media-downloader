@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { REDDIT_VIDEO_RESOLUTIONS, REDDIT_BASE_VIDEO_URL } = require("./constants");
+const { REDDIT_VIDEO_RESOLUTIONS, REDDIT_BASE_VIDEO_URL, POST_TYPE_VIDEO } = require("./constants");
 const { scrape, getContentLength, getAudioAvailable } = require("./utils");
 
 const getRedditVideoUrls = async (mediaUrl, quality) => {
@@ -24,6 +24,7 @@ const getRedditVideoUrls = async (mediaUrl, quality) => {
     }
 
     return {
+      postType: POST_TYPE_VIDEO,
       resolution,
       url,
       contentLength,
